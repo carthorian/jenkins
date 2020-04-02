@@ -1,0 +1,53 @@
+jenkins:
+  systemMessage: "\n\nPoC setup for Jenkins Configuration as Code plugin...\n\n"
+
+  numExecutors: 1
+  mode: NORMAL
+  scmCheckoutRetryCount: 3
+  labelString: "master-label"  
+
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+       - id: admin
+         password: ${adminpw:-passw0rd}
+
+  authorizationStrategy:
+    globalMatrix:
+      grantedPermissions:
+        - "Overall/Read:anonymous"
+        - "Job/Read:anonymous"
+        - "View/Read:anonymous"
+        - "Overall/Administer:anonymous"
+
+  crumbIssuer: "standard"
+
+  remotingSecurity:
+    enabled: true    
+
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+        - usernamePassword:
+            scope:    GLOBAL
+            id:       github-user
+            username: mkaplan-kumoco
+            password: ${github:-p4ssw0rd}
+            description: github username/password credentials  
+
+tool:
+  git:
+    installations:
+      - name: Default
+        home: "git"
+  maven:
+    installations:
+    - name: "Maven3"
+      properties:
+      - installSource:
+          installers:
+            - maven:
+                id: "3.6.2"
+

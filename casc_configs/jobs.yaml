@@ -1,0 +1,17 @@
+jobs:
+  - script: >
+      mavenJob('SalesOrderMvn') {
+         description('Jenkins Auto Job')
+         scm {
+             git {
+                remote { 
+                   github('Vodafone-Oman/SalesOrder') 
+                }
+                branches('master')
+                extensions { cleanAfterCheckout() }
+             }
+         }
+         rootPOM('output/pom.xml')
+         preBuildSteps { shell(" wget https://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.2.3/swagger-codegen-cli-2.2.3.jar ;  java -jar swagger-codegen-cli-2.2.3.jar generate -i ./REST/VBS/Order/SalesOrder/V4/SalesOrderVBS.flat.swagger.json -l spring --artifact-id sales-order --artifact-version 2.3.4 -o output ;") }
+         postBuildSteps('SUCCESS') { shell("wget https://raw.githubusercontent.com/mkaplan-kumoco/maven-dockerfile/master/Dockerfile ; docker build . --tag mkaplansalesorder") }
+      }

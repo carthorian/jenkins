@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+  jenkins: 
+    image: mkaplankumoco/jenkins
+    ports: 
+      - 80:8080
+      - 50000:50000
+    volumes:
+      - jenkins_home_summit:/var/jenkins_home
+      - ./casc_configs:/var/jenkins_conf
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - CASC_JENKINS_CONFIG=/var/jenkins_conf
+volumes:
+  jenkins_home_dir:
