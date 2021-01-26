@@ -33,7 +33,7 @@ credentials:
         - usernamePassword:
             scope:    GLOBAL
             id:       github-user
-            username: mkaplan-kumoco
+            username: carthorian
             password: ${github:-p4ssw0rd}
             description: github username/password credentials  
 
