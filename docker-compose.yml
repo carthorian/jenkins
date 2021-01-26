@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   jenkins: 
-    image: mkaplankumoco/jenkins:gid993
+    image: carthorian/jenkins:gid993
     ports: 
       - 80:8080
       - 50000:50000
